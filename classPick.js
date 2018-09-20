@@ -35,7 +35,7 @@ let beardClass,
       $(elementsToDisplay[i]).css({display: "grid",});
     }
     $(".classPick").css({display: "none",})
-    $("body").css({background: "url(img/dirty_BG.png) center center", backgroundSize: "cover"})
+    $("body").css({background: "url(img/dirty_BG.jpg) center center", backgroundSize: "cover"})
 
   })
 

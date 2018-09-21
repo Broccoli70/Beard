@@ -4,8 +4,14 @@ $(function() {
       pointsNeed = 150;
 
   let words = ["ZAJEBRODA", "OCTOPUSOS", "OCTOPUSOS",  "NIC",  "OMG",];
-  let beards = ["beard_short.png", "beard_Vshape.png", "beard_upgrade_1.png", ]
-  let next = 0;
+
+  let beards = []
+  for(let i = 2; i < 10; i++) {
+    beards.push("beard_" + i + ".png");
+  }
+  
+  let nextB = 0;
+  let nextQ = 0;
   let beardSize = 1;
 
   displayPoints();
@@ -20,15 +26,8 @@ $(function() {
       beardSize = 1;
     }
 
-    if (beardSize > 1.4) {
-      light = 1.5;
-    } else {
-      light = 1;
-    }
-
     $("#beard").css({
       transform: "scale(" + beardSize + ")",
-      filter: " brightness(" + light + ")",
     })
     $("#point")
     .animate({
@@ -80,10 +79,47 @@ $(function() {
       pointsNeed *= 2;
       healthPoint += 150;
 
-      //Superscription
+      //Change animation
+      $("#beard").animate({
+        width: "0px",
+        height: "0px",
+        display: 0,
 
-      $("#beard").css({background: "url(img/" + beards[next] + ")", backgroundSize: "cover"});
-      next++;
+      }, 200, () => {
+
+        $("#beard").css({background: "url(img/" + beards[nextB] + ")", backgroundSize: "cover"});
+        nextB++;
+        $(".beard_queue")
+        .css({
+          display: "grid",
+        })
+        .animate({
+          width: "250px",
+          height: "250px",
+        }, 400, () => {
+          $(".beard_queue").css({display: "none", width: "0px", height: "0px"})
+          $(".beard_queue").css({background: "url(img/" + beards[nextQ] + ")", backgroundSize: "cover"});
+          $("#beard").css({width: "250px", height: "250px", opacity: 1,})
+        })
+      })
+      nextQ++;
+
+      //Change animation part.2
+
+      $(".star")
+      .css({
+        display: "grid",
+      })
+      .animate({
+        marginLeft: "200px",
+        opacity: 0,
+      }, 750, () => {
+        $(".star").css({marginLeft: "-75px", display: "none", opacity: 1,})
+      })
+
+
+
+
 
       displayPoints();
     }
@@ -108,8 +144,6 @@ $(function() {
 
   let click = 0;
   $(".quest_btn").on("click", () => {
-
-    console.log(click);
 
     $(".weapon__open__menu").css({filter: "brightness(1.5)"})
 

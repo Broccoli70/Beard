@@ -152,6 +152,15 @@ button.upgrade_btn {
 }
 
 //CLASSES INFO
+.beard_queue {
+  display: none;
+  position: absolute;
+  height: 0px;
+  width: 0px;
+  background: url("../img/beard_2.png");
+  background-size: cover;
+}
+
 .beardClass {
   display: none;
   grid-template: 1fr / 1fr 1fr;
@@ -289,6 +298,18 @@ h1.game {
   &:hover {
     cursor: pointer;
   }
+}
+
+.star {
+  display: none;
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  margin-left: -75px;
+  background: url("../img/star.png");
+  background-size: cover;
+  z-index: 10;
+  opacity: 0.5;
 }
 
 .version {

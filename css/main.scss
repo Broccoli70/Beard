@@ -67,12 +67,15 @@ button.classPick__btn {
 
 //GAMEMENU
 .gameMenu {
+  display: grid;
+  height: 100vh;
   grid-area: 1 / 1 / 1 / 1;
 
 }
 
 //UPGRADE BUTTON
 button.upgrade_btn {
+  grid-area:  1 / 1 / 1 / 1;
   display: none;
   height: 60px;
   width: 120px;
@@ -86,6 +89,7 @@ button.upgrade_btn {
 
 //WEAPON INFO
 .weapon_btn {
+  grid-area: 1 / 1 / 1 / 1;
   display: none;
   grid-template: 1fr / 1fr 1fr;
   height: 60px;
@@ -152,16 +156,8 @@ button.upgrade_btn {
 }
 
 //CLASSES INFO
-.beard_queue {
-  display: none;
-  position: absolute;
-  height: 0px;
-  width: 0px;
-  background: url("../img/beard_2.png");
-  background-size: cover;
-}
-
 .beardClass {
+  grid-area: 1 / 1 / 1 / 1;
   display: none;
   grid-template: 1fr / 1fr 1fr;
   height: 60px;
@@ -188,6 +184,7 @@ button.upgrade_btn {
 
 //HEALTHPOINT INFO
 .healthPoint {
+  grid-area: 1 / 1 / 1 / 1;
   display: none;
   height: 42px;
   width: 120px;
@@ -206,6 +203,7 @@ button.upgrade_btn {
 //QUEST INFO BUTTON
 
 .quest_btn {
+  grid-area: 1 / 1 / 1 / 1;
   display: none;
   width: 120px;
   height: 60px;
@@ -231,6 +229,73 @@ button.upgrade_btn {
   height: 500px;
   background: url("../img/quest_info.png");
   z-index: 10;
+}
+
+//SHOP BUTTON
+
+.shop_btn {
+  grid-area: 1 / 1 / 1 / 1;
+  display: none;
+  width: 200px;
+  height: 200px;
+  background: url("../img/shop.png");
+  background-size: cover;
+  margin-left: 25px;
+  z-index: 10;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+}
+
+.shop_menu {
+  grid-area: 1 / 1 / 1 / 1;
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  justify-self: center;
+  align-self: center;
+  display: none;
+  width: 800px;
+  height: 500px;
+  background: url("../img/shop_menu.png");
+  z-index: 10;
+}
+
+.shop_menu_item {
+  justify-self: center;
+  align-self: center;
+  width: 150px;
+  height: 150px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:nth-child(1) {
+    background: url("../img/beard_1.png");
+    background-size: cover;
+    margin-left: 35px;
+    margin-top: 25px;
+  }
+  &:nth-child(2) {
+    background: url("../img/beard_2.png");
+    background-size: cover;
+    margin-left: -35px;
+    margin-top: 25px;
+  }
+  &:nth-child(3) {
+    background: url("../img/beard_3.png");
+    background-size: cover;
+    margin-left: 35px;
+    margin-top: -35px;
+  }
+  &:nth-child(4) {
+    background: url("../img/beard_4.png");
+    background-size: cover;
+    margin-left: -35px;
+    margin-top: -35px;
+  }
 }
 
 
@@ -300,16 +365,25 @@ h1.game {
   }
 }
 
-.star {
+.beard_queue {
   display: none;
   position: absolute;
-  width: 150px;
-  height: 150px;
-  margin-left: -75px;
-  background: url("../img/star.png");
+  height: 0px;
+  width: 0px;
+  background: url("../img/beard_2.png");
+  background-size: cover;
+}
+
+
+.scissors {
+  display: none;
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  margin-left: -150px;
+  background: url("../img/scissors_open.png");
   background-size: cover;
   z-index: 10;
-  opacity: 0.5;
 }
 
 .version {

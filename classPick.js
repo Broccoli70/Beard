@@ -27,7 +27,7 @@ let beardClass,
 
   //BOTH BUTTONS
   let elementsToDisplay = ["#beardClass", "#HP", "#upgrade", "#weapon",
-                           ".beardPoints_info", ".quest_btn",];
+                           ".beardPoints_info", ".quest_btn", ".shop_btn",];
 
 
   $(".classPick__btn").on("click", (e) => {

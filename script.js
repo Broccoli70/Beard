@@ -1,9 +1,7 @@
 $(function() {
 
-  let points = 10000000,
+  let points = 0,
       pointsNeed = 300;
-
-  let words = ["ZAJEBRODA", "OCTOPUSOS", "OCTOPUSOS",  "NIC",  "OMG",];
 
   let beards = []
   for(let i = 2; i < 10; i++) {
@@ -15,35 +13,16 @@ $(function() {
   let beardSize = 1;
   let beardLevel = 1;
 
-  displayPoints();
 
   //Points addition - Beard Click
   $("#beard").on("click", () => {
     let light;
 
-    if(beardSize < 1.4) {
-      beardSize += 0.05;
-    } else {
-      beardSize = 1;
-    }
 
-    $("#beard").css({
-      transform: "scale(" + beardSize + ")",
-    })
-    $("#point")
-    .animate({
-      opacity: 0.9,
-      marginTop: "-190px",
-
-    }, 100, () => {
-      $("#point").css({opacity: 0, marginTop: "-100px"});
-    })
 
 
     //POINTS GAIN LEVEL <-----------------------------
-    points += (beardLevel*50);
 
-    displayPoints();
 
     //Upgrade igniter
     if(points >= pointsNeed) {
@@ -98,8 +77,6 @@ $(function() {
       beardLevel++;
       healthPoint += 150;
 
-      displayPoints();
-
       //Change animation
       $("#beard").animate({
         width: "0px",
@@ -141,74 +118,224 @@ $(function() {
 
   })
 
+  //-------------------------------------------- New Code / 22.09 23.09 24.09
+
+
+  //Point class
+
+  class Point {
+    constructor() {
+
+    }
+
+    displayPoints() {
+      $("#points").text(points);
+      $(".needPoints").text(pointsNeed);
+    }
+
+  }
+
+  let point = new Point();
+
+
+
+  //Beard class
+  class Beard {
+    constructor(element, increasePoints, grow){
+      this.element = element;
+      this.increasePoints = increasePoints;
+      this.grow = grow;
+
+      }
+    buy(id) {
+      points -= price;
+      }
+    getPoints(id) {
+        return pps;
+      }
+    getPrice(id) {
+        return price;
+      }
+    getImage(id) {
+        return img;
+      }
+    growUp() {
+      if(beardSize < 1.4) {
+        beardSize += this.grow;
+      } else {
+        beardSize = 1;
+      }
+
+      $("." + this.element).css({
+        transform: "scale(" + beardSize + ")",
+      })
+
+    } //end grow function
+    points(element) {
+
+      //increasePoints
+      points += this.increasePoints;
+
+      //Display gold point's aniations
+      $(element)
+      .animate({
+        opacity: 0.9,
+        marginTop: "-190px",
+
+      }, 100, () => {
+        $(".point").css({opacity: 0, marginTop: "-100px"});
+      })
+
+    } //end points function
+
+  } //end beard class
+
+    let beard = new Beard("beard", 150, 0.05);
+    $(".beard").on( "click" , () => {
+      beard.growUp();
+      beard.points(".point");
+      point.displayPoints();
+    })
+
+    point.displayPoints();
+
+
   //OppeningCards SCRIPT
+
   class OppeningCards {
     constructor(element) {
       this.element = element;
       this.counter = 0;
     }
 
+    open() {
+
+      $("." + this.element) //Recall to element
+      //Change picture to open
+      .css({
+        background: "url(img/" +  this.element + "_open.png) center center no-repeat",
+        backgroundSize: "cover",
+      })
+
+      $("." + this.element + "_menu") //Recall to element_menu
+      //CSS modification
+      .css({
+        display: "grid",
+        background: "url(img/" +  this.element + "_menu.png) center center no-repeat",
+      })
+    }
+
+    close() {
+
+      $("." + this.element) //Recall to element
+      //Change picture to close
+      .css({
+        background: "url(img/" +  this.element + ".png) center center no-repeat",
+        backgroundSize: "cover",
+      })
+
+      $("." + this.element + "_menu") //Recall to element_menu
+      //CSS modification
+      .css({
+        display: "none",
+      });
+
+    }
+
     openClose() { //Open openClose Funcition
 
-      //Script respoinsible to opening and closing every elements menu
-      if(this.counter == 0) { //Start if
+      if(this.counter == 0) {
 
-        $("." + this.element) //Recall to element
-        //Change picture to open
-        .css({
-          background: "url(img/" +  this.element + "_open.png) center center no-repeat",
-          backgroundSize: "cover",
-        })
-
-        $("." + this.element + "_menu") //Recall to element_menu
-        //CSS modification
-        .css({
-          display: "grid",
-          background: "url(img/" +  this.element + "_menu.png) center center no-repeat",
-        })
-        this.counter++; //Increment counter
-
+        this.open();
+        this.counter++;
       } else if(this.counter == 1) {
 
-        $("." + this.element) //Recall to element
-        //Change picture to close
-        .css({
-          background: "url(img/" +  this.element + ".png) center center no-repeat",
-          backgroundSize: "cover",
-        })
-
-        $("." + this.element + "_menu") //Recall to element_menu
-        //CSS modification
-        .css({
-          display: "none",
-        });
-        this.counter = 0; //Increment set value to 0
+        this.close();
+        this.counter = 0;
       } //End if
     } //End openClose animation
 
-  blockOtherElement(blockElement) {
+  eventHandler() {
 
+    $("." + this.element).on("click", () => {
+      this.openClose();
+    })
   }
 
+    //in work
 
+
+
+  } //end OppeningCards class
+
+
+
+
+  class Shop extends OppeningCards {
+    constructor(elementShop) {
+      super(elementShop, elementShop);
+      this.elementShop = elementShop;
+    }
+
+    beardChoice() {
+
+      $(".shop_menu_item").on("click", (e) => {
+
+        let targetId =  e.target.id;
+        if(this.pointCheck) {
+
+          this.openClose();
+          $(".shop_menu").css({display: "none"});
+          $("#beard").css({background: "url(img/" + targetId + ".png)", backgroundSize: "cover",})
+          $(".shop_btn").css({background: "url(img/shop.png)", backgroundSize: "cover",})
+
+
+        } //end points chceking if
+      })
+    } //end beardChoice function
+
+  get pointCheck() {
+    if(points >= pointsNeed) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  } //end Shop class
+
 
   //Class definiton
-  let access;
+
+
   let Weapon = new OppeningCards("weapon");
-  let Shop = new OppeningCards("shop");
-
-  $(".weapon").on("click", () => {
-    Weapon.openClose();
-    Weapon.blockOtherElement(".shop_menu");
-  });
-
-  $(".shop").on("click", () => {
-    Shop.openClose();
-    Shop.blockOtherElement(".weapon_menu");
-  });
+  let Sklep = new OppeningCards("shop");
+  let SklepMenu = new Shop("shop_menu")
 
 
+  Sklep.eventHandler();
+  Weapon.eventHandler();
+  SklepMenu.beardChoice();
+
+
+
+
+//------------------------------------------ New Code / 22.09 23.09 24.09
+
+
+  //Buying a beard
+  // $(".shop_menu_item").on("click")
+  // {
+  //   tempID = parseInt($(".shop_menu_item").attr('id'));    //Getting ID of clicked beard
+  //   if( points >= this['beard' + tempID].getPrice(tempID)){
+  //     this['beard' + tempID].buy(tempID);
+  //     $(".beard").css({
+  //       background: url(this['beard' + tempID].getImage(tempID))
+  //     });
+  //   }
+  //
+  // }
+  //
   // $(".shop_menu_item").on("click", (e) => {
   //
   //   let targetId =  e.target.id;
@@ -236,13 +363,5 @@ $("html").attr('unselectable','on')
              '-ms-user-select':'none',
              'user-select':'none'
 }).bind('selectstart', function(){ return false; });
-
-
-function displayPoints() {
-  $("#points").text(points);
-  $("#upgrade").text("UPGRADE" + "\n" + points + " / " + pointsNeed);
-  $(".healthPoint__text").text(healthPoint + "/" + healthPoint);
-
-};
 
 })

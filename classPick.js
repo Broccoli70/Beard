@@ -27,15 +27,17 @@ let beardClass,
 
   //BOTH BUTTONS
   let elementsToDisplay = ["#beardClass", "#HP", "#upgrade", ".weapon",
-                           ".beardPoints_info", ".quest_btn", ".shop",];
+                           ".beardPoints_info", ".quest_btn", ".shop",".needPoints"];
+
+
+   for(let i=0; i < elementsToDisplay.length; i++) {
+     $(elementsToDisplay[i]).css({display: "grid",});
+   }
+   $(".classPick").css({display: "none",})
+   $("body").css({background: "url(img/dirty_bg.png) center center", backgroundSize: "cover"})
 
 
   $(".classPick__btn").on("click", (e) => {
-    for(let i=0; i < elementsToDisplay.length; i++) {
-      $(elementsToDisplay[i]).css({display: "grid",});
-    }
-    $(".classPick").css({display: "none",})
-    $("body").css({background: "url(img/dirty_bg.png) center center", backgroundSize: "cover"})
 
   })
 

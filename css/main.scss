@@ -71,7 +71,7 @@ button.classPick__btn {
   height: 100vh;
   width: 100%;
   grid-area: 1 / 1 / 1 / 1;
-  grid-template: 1fr / 20% auto;
+  grid-template: 1fr / 200px 200px auto;
 
 }
 
@@ -154,14 +154,13 @@ button.classPick__btn {
 
 //WEAPON INFO
 .weapon {
-  grid-area: 1 / 1 / 1 / 2;
+  grid-area: 1 / 2 / 1 / 3;
   display: none;
   z-index: 10;
   height: 200px;
   width: 200px;
   background: url("../img/weapon.png");
   background-size: cover;
-  margin-top: 250px;
 
   &:hover {
     cursor: pointer;
@@ -172,7 +171,7 @@ button.classPick__btn {
 //WEAPON MENU OPEN
 .weapon_menu {
   display: none;
-  grid-area: 1 / 1 / 1 / 3;
+  grid-area: 1 / 1 / 1 / 4;
   justify-self: center;
   align-self: center;
   width: 800px;
@@ -198,7 +197,7 @@ button.classPick__btn {
 }
 
 .shop_menu {
-  grid-area: 1 / 1 / 1 / 3;
+  grid-area: 1 / 1 / 1 / 4;
   display: none;
   grid-template: 1fr 1fr / 1fr 1fr;
   justify-self: center;
@@ -271,6 +270,19 @@ h1.game {
   position: absolute;
   font-size: 15rem;
   color: rgb(255, 0, 176);
+}
+
+.needPoints {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  margin-top: -300px;
+  margin-left: 350px;
+  width: 200px;
+  height: 200px;
+  background: url("../img/needPoints.png");
+  background-size: cover;
 }
 
 .beardPoints_info {

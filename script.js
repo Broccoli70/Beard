@@ -1,7 +1,7 @@
 $(function() {
 
-  let points = 0,
-      pointsNeed = 1000;
+  let points = 10000000,
+      pointsNeed = 300;
 
   let words = ["ZAJEBRODA", "OCTOPUSOS", "OCTOPUSOS",  "NIC",  "OMG",];
 
@@ -89,72 +89,16 @@ $(function() {
       }
 
       if(beardLevel == fifthGrade){
-        multiply = 120;
-        pointsNeed = pointsNeed + beardLevel * multiply;
+        multiply = 10;
+        pointsNeed = 300;
       } else{
-        multiply = 100;
-        pointsNeed = pointsNeed + beardLevel * multiply;
+        multiply = 10;
+        pointsNeed = 300;
       }
       beardLevel++;
       healthPoint += 150;
 
       displayPoints();
-    }
-
-  })
-
-  //Weapon menu
-  $(".weapon__open__menu").on("click", () => {
-    $(".weapon__menu").css({display: "grid"})
-    $("#weapon").css({cursor: "default"})
-    $(".weapon__open__menu").css({filter: "brightness(1.5)"})
-
-  })
-
-  //Weapon back
-  $(".weapon__menu__back").on("click", () => {
-    $(".weapon__menu").css({display: "none"});
-    $(".weapon__open__menu").css({filter: "brightness(1)"})
-
-  })
-
-
-  let click = 0;
-  let click2 = 0;
-  $(".quest_btn").on("click", () => {
-
-    if(click == 0) {
-      $(".quest_info").css({display: "grid"});
-      click++;
-    } else if(click == 1) {
-      $(".quest_info").css({display: "none"});
-      click = 0;
-    }
-  });
-
-  $(".shop_btn").on("click", () => {
-
-    if(click2 == 0) {
-      $(".shop_btn").css({background: "url(img/shop_open.png)", backgroundSize: "cover",})
-      $(".shop_menu").css({display: "grid"});
-      click2++;
-    } else if(click2 == 1) {
-      $(".shop_menu").css({display: "none"});
-      $(".shop_btn").css({background: "url(img/shop.png)", backgroundSize: "cover",})
-      click2 = 0;
-    }
-
-  })
-
-  $(".shop_menu_item").on("click", (e) => {
-
-    let targetId =  e.target.id;
-    if(points >= pointsNeed) {
-      $("#" + targetId).css({filter: "brightness(1.2)"})
-      $(".shop_menu").css({display: "none"});
-      $("#beard").css({background: "url(img/" + targetId + ".png)", backgroundSize: "cover",})
-      $(".shop_btn").css({background: "url(img/shop.png)", backgroundSize: "cover",})
-      click2 = 0;
 
       //Change animation
       $("#beard").animate({
@@ -197,6 +141,90 @@ $(function() {
 
   })
 
+  //OppeningCards SCRIPT
+  class OppeningCards {
+    constructor(element) {
+      this.element = element;
+      this.counter = 0;
+    }
+
+    openClose() { //Open openClose Funcition
+
+      //Script respoinsible to opening and closing every elements menu
+      if(this.counter == 0) { //Start if
+
+        $("." + this.element) //Recall to element
+        //Change picture to open
+        .css({
+          background: "url(img/" +  this.element + "_open.png) center center no-repeat",
+          backgroundSize: "cover",
+        })
+
+        $("." + this.element + "_menu") //Recall to element_menu
+        //CSS modification
+        .css({
+          display: "grid",
+          background: "url(img/" +  this.element + "_menu.png) center center no-repeat",
+        })
+        this.counter++; //Increment counter
+
+      } else if(this.counter == 1) {
+
+        $("." + this.element) //Recall to element
+        //Change picture to close
+        .css({
+          background: "url(img/" +  this.element + ".png) center center no-repeat",
+          backgroundSize: "cover",
+        })
+
+        $("." + this.element + "_menu") //Recall to element_menu
+        //CSS modification
+        .css({
+          display: "none",
+        });
+        this.counter = 0; //Increment set value to 0
+      } //End if
+    } //End openClose animation
+
+  blockOtherElement(blockElement) {
+
+  }
+
+
+  }
+
+  //Class definiton
+  let access;
+  let Weapon = new OppeningCards("weapon");
+  let Shop = new OppeningCards("shop");
+
+  $(".weapon").on("click", () => {
+    Weapon.openClose();
+    Weapon.blockOtherElement(".shop_menu");
+  });
+
+  $(".shop").on("click", () => {
+    Shop.openClose();
+    Shop.blockOtherElement(".weapon_menu");
+  });
+
+
+  // $(".shop_menu_item").on("click", (e) => {
+  //
+  //   let targetId =  e.target.id;
+  //   if(points >= pointsNeed) {
+  //     $("#" + targetId).css({filter: "brightness(1.2)"})
+  //     $(".shop_menu").css({display: "none"});
+  //     $("#beard").css({background: "url(img/" + targetId + ".png)", backgroundSize: "cover",})
+  //     $(".shop_btn").css({background: "url(img/shop.png)", backgroundSize: "cover",})
+  //     click2 = 0;
+  //
+  //   }
+  //
+  // })
+
+  //END OF OppeningCards SCRIPT
+
 
 //nonselection script
 $("html").attr('unselectable','on')
@@ -209,13 +237,12 @@ $("html").attr('unselectable','on')
              'user-select':'none'
 }).bind('selectstart', function(){ return false; });
 
+
 function displayPoints() {
   $("#points").text(points);
   $("#upgrade").text("UPGRADE" + "\n" + points + " / " + pointsNeed);
-  $(".weapon__text").text("Buy");
   $(".healthPoint__text").text(healthPoint + "/" + healthPoint);
 
 };
-
 
 })
